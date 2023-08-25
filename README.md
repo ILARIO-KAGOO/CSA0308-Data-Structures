@@ -177,10 +177,43 @@ OUTPUT:
 
 ### QN-6 (Fibo_with_Recursion):
 ```c
+#include<stdio.h>
 
+int fibo(int a, int b,int c)
+{
+  if(c == 0)
+  {
+    return 0;
+  }
+  else
+  {
+    int t = a+b;
+    printf(", %d ",t);
+    fibo(b,t,c=c-1);
+  }
+}
+
+void main()
+{
+  int in;
+  printf("Enter the range: ");
+  scanf("%d",&in);
+  printf("0 , 1 ");
+  fibo(0,1,in-2);
+}
 ```
 OUTPUT:
 
 ![Fibo_with_Recursion](/Output/Fibo_with_Recursion.png)
+
+---
+
+### QN-7 (Array_Operations):
+```c
+
+```
+OUTPUT:
+
+![Array_Operations](/Output/Array_Operations.png)
 
 ---
