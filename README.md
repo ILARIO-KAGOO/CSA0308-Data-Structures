@@ -210,10 +210,216 @@ OUTPUT:
 
 ### QN-7 (Array_Operations):
 ```c
+#include <stdio.h>
 
+int main() 
+{
+  int arr[100], n, i, pos, choice;
+
+  printf("Enter the number of elements in the array: ");
+  scanf("%d", &n);
+
+  printf("Enter the elements of the array:\n");
+  for (i = 0; i < n; i++) 
+  {
+    scanf("%d", &arr[i]);
+  }
+
+  while (1) 
+  {
+    printf("\nArray Operations:\n");
+    printf("1. Insert an element\n");
+    printf("2. Delete an element\n");
+    printf("3. Display the array\n");
+    printf("4. Exit\n");
+    printf("Enter your choice: ");
+    scanf("%d", &choice);
+
+    switch (choice) 
+    {
+      case 1:
+        printf("\nEnter the position where you want to insert the element: ");
+        scanf("%d", &pos);
+
+        if (pos < 0 || pos > n) 
+        {
+          printf("Invalid position!\n");
+        } 
+        else 
+        {
+          for (i = n - 1; i >= pos; i--) 
+          {
+            arr[i + 1] = arr[i];
+          }
+
+          printf("Enter the element to be inserted: ");
+          scanf("%d", &arr[pos]);
+          n++;
+        }
+
+        break;
+
+      case 2:
+        printf("\nEnter the position of the element to be deleted: ");
+        scanf("%d", &pos);
+
+        if (pos < 0 || pos >= n) 
+        {
+          printf("Invalid position!\n");
+        } 
+        else 
+        {
+          for (i = pos; i < n - 1; i++) 
+          {
+            arr[i] = arr[i + 1];
+          }
+
+          n--;
+        }
+
+        break;
+
+      case 3:
+        printf("\nThe elements of the array are:\n");
+
+        for (i = 0; i < n; i++) 
+        {
+          printf("%d ", arr[i]);
+        }
+
+        printf("\n");
+
+        break;
+
+      case 4:
+        return 0;
+
+      default:
+        printf("\nInvalid choice!\n");
+    }
+  }
+}
 ```
 OUTPUT:
 
 ![Array_Operations](/Output/Array_Operations.png)
+
+---
+
+### QN-8 (Linear_Search):
+```c
+#include <stdio.h>
+
+int main() 
+{
+  int arr[100], n, i, search;
+
+  printf("Enter the number of elements in the array: ");
+  scanf("%d", &n);
+
+  printf("Enter the elements of the array:\n");
+  for (i = 0; i < n; i++) 
+  {
+    scanf("%d", &arr[i]);
+  }
+
+  printf("Enter the element to be searched: ");
+  scanf("%d", &search);
+
+  for (i = 0; i < n; i++) 
+  {
+    if (arr[i] == search) 
+    {
+      printf("%d is present at location %d.\n", search, i + 1);
+      break;
+    }
+  }
+
+  if (i == n) 
+  {
+    printf("%d is not present in the array.\n", search);
+  }
+
+  return 0;
+}
+```
+OUTPUT:
+
+![Linear_Search](/Output/Linear_Search.png)
+
+---
+
+### QN-9 (Binary_Search):
+```c
+#include <stdio.h>
+
+int main() 
+{
+  int arr[100], n, i, search, first, last, middle;
+
+  printf("Enter the number of elements in the array: ");
+  scanf("%d", &n);
+
+  printf("Enter the elements of the array in ascending order:\n");
+  for (i = 0; i < n; i++) 
+  {
+    scanf("%d", &arr[i]);
+  }
+
+  printf("Enter the element to be searched: ");
+  scanf("%d", &search);
+
+  first = 0;
+  last = n - 1;
+  middle = (first + last) / 2;
+
+  while (first <= last) 
+  {
+    if (arr[middle] < search) 
+    {
+      first = middle + 1;
+    } 
+    else if (arr[middle] == search) 
+    {
+      printf("%d is present at location %d.\n", search, middle + 1);
+      break;
+    } 
+    else 
+    {
+      last = middle - 1;
+    }
+
+    middle = (first + last) / 2;
+  }
+
+  if (first > last) 
+  {
+    printf("%d is not present in the array.\n", search);
+  }
+
+  return 0;
+}
+```
+OUTPUT:
+
+![Binary_Search](/Output/Binary_Search.png)
+
+---
+### QN-10 (Linked_List):
+```c
+
+```
+OUTPUT:
+
+![Linked_List](/Output/Linked_List.png)
+
+---
+### QN-11 (Stack_Operations):
+```c
+
+```
+OUTPUT:
+
+![Stack_Operations](/Output/Stack_Operations.png)
 
 ---
