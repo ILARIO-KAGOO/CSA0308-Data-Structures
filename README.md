@@ -883,16 +883,13 @@ int main()
   return 0;
 }
 ```
-OUTPUT:
+INPUT:
 ```mermaid
   graph TD;
     1 --> 2;
     1 --> 3;
-    2 --> NULL;
-    2 --> NULL;
-    3 --> NULL;
-    3 --> NULL;
 ```
+OUTPUT:
 ![Tree_Traversal](/Output/Tree_Traversal.png)
 
 ---
