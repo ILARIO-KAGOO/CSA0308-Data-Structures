@@ -558,12 +558,270 @@ OUTPUT:
 ![Linked_List](/Output/Linked_List.png)
 
 ---
+
 ### QN-11 (Stack_Operations):
 ```c
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAXSIZE 100
+
+int stack[MAXSIZE];
+int top = -1;
+
+void push(int data) 
+{
+  if (top >= MAXSIZE - 1) 
+  {
+    printf("Stack overflow.\n");
+    return;
+  }
+
+  stack[++top] = data;
+}
+
+int pop() 
+{
+  if (top < 0) 
+  {
+    printf("Stack underflow.\n");
+    return -1;
+  }
+
+  return stack[top--];
+}
+
+int peek() {
+  if (top < 0) 
+  {
+    printf("Stack is empty.\n");
+    return -1;
+  }
+
+  return stack[top];
+}
+
+int main() 
+{
+  push(5);
+  push(10);
+  push(15);
+
+  printf("Top element: %d\n", peek());
+
+  printf("Elements: ");
+  while (top >= 0) 
+  {
+    printf("%d ", pop());
+  }
+  
+  return 0;
+}
 
 ```
 OUTPUT:
 
 ![Stack_Operations](/Output/Stack_Operations.png)
+
+---
+
+### QN-12 (Infix_to_Postfix):
+```c
+#include <stdio.h>
+#include <string.h>
+#include <limits.h>
+#include <stdlib.h>
+struct Stack
+{
+  int top;
+  int maxSize;
+  int *array;
+};
+struct Stack *create(int max)
+{
+  struct Stack *stack = (struct Stack *)malloc(sizeof(struct Stack));
+  stack->maxSize = max;
+  stack->top = -1;
+  stack->array = (int *)malloc(stack->maxSize * sizeof(int));
+  return stack;
+}
+int isFull(struct Stack *stack)
+{
+  if (stack->top == stack->maxSize - 1)
+  {
+    printf("Will not be able to push maxSize reached\n");
+  }
+  return stack->top == stack->maxSize - 1;
+}
+int isEmpty(struct Stack *stack)
+{
+  return stack->top == -1;
+}
+void push(struct Stack *stack, int item)
+{
+  if (isFull(stack))
+    return;
+  stack->array[++stack->top] = item;
+}
+int pop(struct Stack *stack)
+{
+  if (isEmpty(stack))
+
+    return INT_MIN;
+  return stack->array[stack->top--];
+}
+int peek(struct Stack *stack)
+{
+  if (isEmpty(stack))
+    return INT_MIN;
+  return stack->array[stack->top];
+}
+int checkIfOperand(char ch)
+{
+  return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z');
+}
+int precedence(char ch)
+{
+  switch (ch)
+  {
+  case '+':
+  case '-':
+    return 1;
+  case '*':
+  case '/':
+    return 2;
+  case '^':
+    return 3;
+  }
+  return -1;
+}
+int covertInfixToPostfix(char *expression)
+{
+  int i, j;
+  struct Stack *stack = create(strlen(expression));
+  if (!stack)
+    return -1;
+  for (i = 0, j = -1; expression[i]; ++i)
+  {
+
+    if (checkIfOperand(expression[i]))
+      expression[++j] = expression[i];
+    else if (expression[i] == '(')
+      push(stack, expression[i]);
+    else if (expression[i] == ')')
+    {
+      while (!isEmpty(stack) && peek(stack) != '(')
+        expression[++j] = pop(stack);
+      if (!isEmpty(stack) && peek(stack) != '(')
+        return -1;
+      else
+        pop(stack);
+    }
+    else
+    {
+      while (!isEmpty(stack) && precedence(expression[i]) <= precedence(peek(stack)))
+        expression[++j] = pop(stack);
+      push(stack, expression[i]);
+    }
+  }
+  while (!isEmpty(stack))
+    expression[++j] = pop(stack);
+  expression[++j] = '\0';
+  printf("Postfix Expression: %s", expression);
+}
+int main()
+{
+  char expression[] = "((x+(y*z))-w)";
+  printf("Infix Expression: %s\n",expression);
+  covertInfixToPostfix(expression);
+  return 0;
+}
+```
+OUTPUT:
+
+![Infix_to_Postfix](/Output/Infix_to_Postfix.png)
+
+---
+
+### QN-13 (Queue_Operations):
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+struct node
+{
+  int label;
+  struct node *next;
+};
+void main()
+{
+  int ch = 0;
+  int k;
+  struct node *h, *temp, *head;
+  /* Head node construction */
+  head = (struct node *)malloc(sizeof(struct node));
+  head->next = NULL;
+  while (1)
+  {
+    printf("\n Queue using Linked List \n");
+    printf("1->Enqueue ");
+    printf("2->Dequeue ");
+    printf("3->View ");
+    printf("4->Exit \n");
+    printf("Enter your choice : ");
+    scanf("%d", &ch);
+    switch (ch)
+    {
+      case 1:
+        /* Create a new node */
+        temp = (struct node *)(malloc(sizeof(struct node)));
+        printf("Enter label for new node : ");
+        scanf("%d", &temp->label);
+        /* Reorganize the links */
+        h = head;
+        while (h->next != NULL)
+          h = h->next;
+        h->next = temp;
+        temp->next = NULL;
+
+        break;
+      case 2:
+        /* Delink the first node */
+        h = head->next;
+        head->next = h->next;
+        printf("Node deleted \n");
+        free(h);
+
+        break;
+      case 3:
+        printf("\n\nHEAD -> ");
+        h = head;
+        while (h->next != NULL)
+        {
+          h = h->next;
+          printf("%d -> ", h->label);
+        }
+        printf("NULL \n");
+
+        break;
+      case 4:
+        exit(0);
+    }
+  }
+}
+```
+OUTPUT:
+
+![Queue_Operations](/Output/Queue_Operations.png)
+
+---
+
+### QN-14 (Tree_Traversal):
+```c
+
+```
+OUTPUT:
+
+![Tree_Traversal](/Output/Tree_Traversal.png)
 
 ---
